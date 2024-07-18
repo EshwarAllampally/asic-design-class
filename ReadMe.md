@@ -43,7 +43,7 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
     ```plaintext
     The sum from 1 to 5 is 15
     ```
-    /add img1
+    ![Output 1](https://github.com/EshwarAllampally/asic-design-class/blob/main/L1T1_Gcc_out.png)
 
 #### Task 2: Compile and Verify C Code using RISC-V GNU Compiler Toolchain
 1. **Compile the code using RISC-V GCC:**
@@ -55,7 +55,7 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
     riscv64-unknown-elf-objdump -d sumton.o | less
     ```
 3. **Output:**
-    /add Img2
+    ![Output 2](https://github.com/EshwarAllampally/asic-design-class/blob/main/L1T2_riscv_gnu_out.png)
 
 ### References
 - [GCC Documentation](https://gcc.gnu.org/)
