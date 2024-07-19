@@ -62,6 +62,67 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
 - [RISC-V GNU Compiler Toolchain Documentation](https://github.com/riscv/riscv-gnu-toolchain)
 
 ---
+## Lab Session 2: [19/07/2024]
+
+### Objective
+1. To compile the Object dump file and verify the output with the GCC output from Lab 1.
+2. To debug the main function and observe register values.
+
+### Materials and Tools
+- **Software Tools:**
+  - GCC (GNU Compiler Collection)
+  - RISC-V GNU Compiler Toolchain
+  - Spike RISC-V Simulator
+  - Ubuntu OS
+
+### Pre-Lab Preparation
+- Installed GCC, RISC-V GNU Compiler Toolchain, and Spike on Ubuntu.
+- Prepared the `sumton.c` file for compilation.
+
+### Procedure
+
+#### Assembly code for reference:
+![Assembly code](https://github.com/EshwarAllampally/asic-design-class/blob/main/L2_assembly_code.png)
+
+#### Task 1: Compile and Verify Objdump File
+
+
+1. **Compile and Run the Objdump File using Spike:**
+    ```bash
+    spike pk sumton.o
+    ```
+
+3. **Output:**
+    ![Output Verified](https://github.com/EshwarAllampally/asic-design-class/blob/main/L2T1_output.png)
+
+
+#### Task 2: Debugging the Main Function
+
+1. **Start Debugging with Spike:**
+    ```bash
+    spike -d pk sumton.o
+    ```
+
+2. **Execute Until start of main:**
+    ```plaintext
+    until pc 0 100b0
+    ```
+
+3. **Run Next Commands and Observe Register Values:**
+    - Press `Enter` to run the next command.
+    - Use the following command to verify the data in the register `a2` before and after execution:
+    ```plaintext
+    reg 0 a0
+    reg 0 sp
+    ```
+3. **Output:**
+    ![Debug Output](https://github.com/EshwarAllampally/asic-design-class/blob/main/L2T2_debug.png)
+
+### References
+
+- [Spike RISC-V Simulator Documentation](https://github.com/riscv/riscv-isa-sim)
+
+---
 
 *Prepared by:* [Eshwar Allampally]  
 *Student ID:* [MT2024504]  
