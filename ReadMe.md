@@ -110,7 +110,7 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
 
 3. **Run Next Commands and Observe Register Values:**
     - Press `Enter` to run the next command.
-    - Use the following command to verify the data in the register `a2` before and after execution:
+    - Use the following command to verify the data in the register `a0` and `sp` before and after execution:
     ```plaintext
     reg 0 a0
     reg 0 sp
