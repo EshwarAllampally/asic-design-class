@@ -130,7 +130,7 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
 2. To determine the exact 32-bit instruction code for specific RISC-V instructions.
 
 ### Procedure
-# RISC-V Instruction Formats
+### RISC-V Instruction Formats
 
 RISC-V instructions are divided into several formats, each serving a distinct purpose and structure. Here's an overview of the different instruction formats used in RISC-V:
 
