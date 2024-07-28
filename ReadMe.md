@@ -123,7 +123,7 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
 - [Spike RISC-V Simulator Documentation](https://github.com/riscv/riscv-isa-sim)
 
   ---
-## Lab Session 3: [ ]
+## Lab Session 3: [22/07/2024]
 
 ### Objective
 1. To identify various RISC-V instruction types (R, I, S, B, U, J).
