@@ -416,9 +416,54 @@ Hardcoded ISA and bit pattern of instructions present in referrence repo;
 |SRL R16, R14, R2|        32'h00271803  |   0000000 00010 01110 001 10000 0000011
 |SLL R15, R1, R2 |        32'h00208783  |   0000000 00010 00001 000 01111 0000011
 
-## Observing Waveforms:
+## Observing Waveforms for the above Instructions:
+
+```
+  ADD R6, R2, R1
+```
+  ![IMG_1](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_1.png)
+  
+
+```
+  SUB R7, R1, R2
+```
+  ![IMG_2](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_2.png)
+
+  
+  ```
+  AND R8, R1, R3
+  ```
+  ![IMG_3](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_3.png)
 
 
+  ```
+  OR R9, R2, R5
+  ```
+  ![IMG_4](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_4.png)
+
+
+  ```
+  XOR R10, R1, R4
+  ```
+  ![IMG_5](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_5.png)
+
+```
+  SLT R1, R2, R4
+  ```
+  ![IMG_6](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_6.png)
+
+
+  ```
+  ADDI R12, R4, 5
+  ```
+  ![IMG_7](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_7.png)
+
+
+  ```
+  BEQ R0, R0, 15
+  ```
+  ![IMG_8](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_8.png)
+  
 ---
 
 *Prepared by:* [Eshwar Allampally]  
