@@ -125,6 +125,8 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
   ---
 ## Lab Session 3: [22/07/2024]
 
+## Task 1: 
+
 ### Objective
 1. To identify various RISC-V instruction types (R, I, S, B, U, J).
 2. To determine the exact 32-bit instruction code for specific RISC-V instructions.
@@ -390,6 +392,32 @@ SLL r15, r11, r2
 - funct7: 0000000
 - rd = 15, rs1 = 11, rs2 = 2
 - **Instruction:** ```0000000 00010 01011 001 01111 0110011```
+
+## Task 2: 
+
+### Objective
+- Functional simulation Experiment
+
+### Procedure
+
+Hardcoded ISA and bit pattern of instructions present in referrence repo;
+|Operation       |        Hardcoded ISA |   Bit Pattern (Hardcoded)
+|----------------|----------------------|----------------------------------------------------
+|ADD R6, R2, R1  |        32'h02208300  |   0000001 00010 00001 000 00110 0000000
+|SUB R7, R1, R2  |        32'h02209380  |   0000001 00010 00001 001 00111 0000000
+|AND R8, R1, R3  |        32'h0230a400  |   0000001 00011 00001 010 01000 0000000
+|OR R9, R2, R5   |        32'h02513480  |   0000001 00101 00010 011 01001 0000000
+|XOR R10, R1, R4 |        32'h0240c500  |   0000001 00100 00001 100 01010 0000000
+|SLT R1, R2, R4  |        32'h02415580  |   0000001 00100 00010 101 01011 0000000  
+|ADDI R12, R4, 5 |        32'h00520600  |   000000000101 00100 000 01100 0000000  
+|BEQ R0, R0, 15  |    32'h00f00002  |   0 000000 01111 00000 000 0000 0 0000010
+|SW R3, R1, 2    |    32'h00209181  |   0000000 00010 00001 001 00011 0000001
+|LW R13, R1, 2   |        32'h00208681  |   000000000010 00001 000 01101 0000001  
+|SRL R16, R14, R2|        32'h00271803  |   0000000 00010 01110 001 10000 0000011
+|SLL R15, R1, R2 |        32'h00208783  |   0000000 00010 00001 000 01111 0000011
+
+## Observing Waveforms:
+
 
 ---
 
