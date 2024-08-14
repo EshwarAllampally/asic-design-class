@@ -1,5 +1,8 @@
 # ASIC Design Lab Report
 
+<details>
+  <summary>Lab Session 1</summary>
+
 ## Lab Session 1: [16/07/2024]
 
 ### Objective
@@ -61,7 +64,13 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
 - [GCC Documentation](https://gcc.gnu.org/)
 - [RISC-V GNU Compiler Toolchain Documentation](https://github.com/riscv/riscv-gnu-toolchain)
 
+</details>
+
 ---
+
+<details>
+  <summary>Lab Session 2</summary>
+
 ## Lab Session 2: [19/07/2024]
 
 ### Objective
@@ -122,7 +131,13 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
 
 - [Spike RISC-V Simulator Documentation](https://github.com/riscv/riscv-isa-sim)
 
-  ---
+</details>
+
+---
+
+<details>
+  <summary>Lab Session 3</summary>
+  
 ## Lab Session 3: [22/07/2024]
 
 ## Task 1: 
@@ -463,10 +478,11 @@ Hardcoded ISA and bit pattern of instructions present in referrence repo;
   BEQ R0, R0, 15
   ```
   ![IMG_8](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_8.png)
-  
+</details>
+
 ---
 
 *Prepared by:* [Eshwar Allampally]  
 *Student ID:* [MT2024504]  
-*Course:* ASIC Design  
+*Course:* [ASIC Design]  
 *Instructor:* [Prof. Kunal gosh]
