@@ -66,8 +66,6 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
 
 </details>
 
----
-
 <details>
   <summary>Lab Session 2</summary>
 
@@ -132,8 +130,6 @@ Compile and verify a basic C code using GCC and the RISC-V GNU compiler toolchai
 - [Spike RISC-V Simulator Documentation](https://github.com/riscv/riscv-isa-sim)
 
 </details>
-
----
 
 <details>
   <summary>Lab Session 3</summary>
@@ -478,6 +474,13 @@ Hardcoded ISA and bit pattern of instructions present in referrence repo;
   BEQ R0, R0, 15
   ```
   ![IMG_8](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab3_Task2_8.png)
+</details>
+
+<details>
+  <summary>Lab Session 4</summary>
+
+## Lab Session 4: [13/08/2024]
+
 </details>
 
 ---
