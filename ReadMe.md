@@ -481,6 +481,163 @@ Hardcoded ISA and bit pattern of instructions present in referrence repo;
 
 ## Lab Session 4: [13/08/2024]
 
+# UART Communication Simulation in C
+
+
+This tutorial demonstrates a simple simulation of UART (Universal Asynchronous Receiver-Transmitter) communication in C.
+
+## Table of Contents
+
+- [Objective](#objective)
+- [Materials and Tools](#materials-and-tools)
+- [Introduction](#introduction)
+- [Code Overview](#code-overview)
+- [Compiling the Code](#compiling-the-code)
+- [Running the Simulation](#running-the-simulation)
+- [Expected Output](#expected-output)
+- [Conclusion](#conclusion)
+
+---
+
+## Objective
+
+Compile and verify a UART Communication System in C code using GCC and the RISC-V GNU compiler toolchain on Ubuntu, and compare the outputs.
+
+## Materials and Tools
+
+-   **Software Tools:**
+    -   GCC (GNU Compiler Collection)
+    -   RISC-V GNU Compiler Toolchain
+    -   Ubuntu OS
+
+## Introduction
+
+UART is a hardware communication protocol that allows data to be sent and received over serial communication. In this simulation, we’ll mimic the behavior of a UART interface using buffers and standard C functions.
+
+## Code Overview
+
+Below is the complete C code that simulates UART communication:
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+#define BUFFER_SIZE 256
+
+static char tx_buffer[BUFFER_SIZE]; // Transmit buffer
+static char rx_buffer[BUFFER_SIZE]; // Receive buffer
+static int tx_head = 0, tx_tail = 0; // Indices for transmit buffer
+static int rx_head = 0, rx_tail = 0; // Indices for receive buffer
+
+// Initialize UART (mock)
+void UART_Init(unsigned long baud_rate) {
+    printf("UART Initialized with baud rate %lu\n", baud_rate);
+}
+
+// Send a single byte of data via UART
+void UART_SendByte(char data) {
+    tx_buffer[tx_head] = data;
+    tx_head = (tx_head + 1) % BUFFER_SIZE;
+    printf("Sending byte: %c\n", data);
+}
+
+// Receive a single byte of data via UART
+char UART_ReceiveByte(void) {
+    if (rx_head == rx_tail) {
+        return '\0'; // Return null character if no data
+    }
+
+    char data_to_return = rx_buffer[rx_tail];
+    rx_tail = (rx_tail + 1) % BUFFER_SIZE;
+    printf("Receiving byte: %c\n", data_to_return);
+    return data_to_return;
+}
+
+// Simulate UART data transfer (for testing)
+void SimulateUARTTransfer(void) {
+    const char example_data[] = "Hello";
+
+    for (size_t i = 0; i < strlen(example_data); i++) {
+        rx_buffer[rx_head] = example_data[i];
+        rx_head = (rx_head + 1) % BUFFER_SIZE;
+    }
+}
+
+int main(void) {
+    UART_Init(9600); // Initialize UART
+
+    // Simulate UART data transfer
+    SimulateUARTTransfer();
+
+    // Send data (simulating what would be sent over UART)
+    const char data_to_send[] = "Hello";
+    for (size_t i = 0; i < strlen(data_to_send); i++) {
+        UART_SendByte(data_to_send[i]);
+    }
+
+    // Process received data and echo it back
+    for (int i = 0; i < strlen(data_to_send); i++) {
+        char received_char = UART_ReceiveByte();
+        if (received_char != '\0') {
+            UART_SendByte(received_char);
+        }
+    }
+
+    return 0;
+}
+```
+## Compiling the Code
+
+### Using GCC
+```bash
+gcc -o uart uart.c
+```
+### Using RISC-V GCC
+```bash
+riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o uart.o uart.c
+```
+
+## Running the Simulation
+
+After compiling, run the simulation to observe the UART communication process. The program will initialize UART, simulate data transfer, send data, and echo back the received data.
+
+### Using GCC
+```bash
+./uart
+```
+### Using Spike
+```bash
+spike pk uart.o
+```
+
+## Expected Output
+
+The expected output of the program should look like this:
+```bash
+UART Initialized with baud rate 9600
+Sending byte: H
+Sending byte: e
+Sending byte: l
+Sending byte: l
+Sending byte: o
+Receiving byte: H
+Sending byte: H
+Receiving byte: e
+Sending byte: e
+Receiving byte: l
+Sending byte: l
+Receiving byte: l
+Sending byte: l
+Receiving byte: o
+Sending byte: o
+```
+### UART Simulation Output
+![Output Image](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab_4/gcc_and_riscv.png)
+
+## Conclusion
+
+This simple simulation of UART communication in C demonstrates how data can be sent and received using buffers. It’s a great starting point for understanding how UART works in embedded systems.
+
 </details>
 
 ---
