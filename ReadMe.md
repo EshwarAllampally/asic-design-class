@@ -645,16 +645,6 @@ This simple simulation of UART communication in C demonstrates how data can be s
 
 ## Complete Pipeline RISC-V CPU Micro Architecture: [15/08/2024]
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Code Overview](#code-overview)
-- [Code Implementation](#code-implementation)
-- [Results](#results)
-- [Conclusion](#conclusion)
-
----
-
 ## Introduction
 
 This project involves the implementation of a Complete Pipeline RISC-V CPU Micro Architecture using the Makerchip IDE. The goal is to design and simulate a basic RISC-V CPU that can execute a simple program to sum numbers from 1 to 9. The implementation follows the RISC-V RV32I base instruction set and is divided into multiple stages for instruction fetch, decode, execute, memory access, and write-back.
@@ -1002,9 +992,87 @@ This implementation demonstrates the fundamentals of pipelining in a RISC-V CPU.
 
 </details>
 
+<details>
+  <summary>Lab Session 6</summary>
+
+## Conversion of TLV to verilog with Sandpiper: [22/08/2024]
+
+## Objective
+
+Convert the High-level TLV Code to verilog using sandpiper and verify the output.
+
+## Installation
+
+### 1. Required Packages
+
+```bash
+sudo apt update
+sudo apt install -y make python python3 python3-pip git iverilog gtkwave docker.io
+sudo chmod 666 /var/run/docker.sock
+sudo apt-get install python3-venv
+```
+
+### 2. Virtual Environment
+
+```bash
+cd ~
+python3 -m venv .venv
+source ~/.venv/bin/activate
+pip install pyyaml click sandpiper-saas
+```
+
+### 3. Clone the Repo
+
+```bash
+git clone https://github.com/manili/VSDBabySoC.git
+```
+
+### 4. Replace TL-Verilog File
+
+Replace the existing `.tlv` file in the `VSDBabySoC/src/module` dir with your our RISC-V `.tlv` file.
+
+### 5. Convert TL-Verilog to Verilog
+
+```bash
+sandpiper-saas -i ./src/module/*.tlv -o rvmyth.v --bestsv --noline -p verilog --outdir ./src/module/
+```
+
+### 6. Create Pre-Synthesis Simulation File
+
+```bash
+make pre_synth_sim
+```
+
+### 7. Compile and Simulate RISC-V Design
+
+```bash
+iverilog -o output/pre_synth_sim.out -DPRE_SYNTH_SIM src/module/testbench.v -I src/include -I src/module
+```
+
+### 8. Run the Simulation Output
+
+```bash
+cd output
+./pre_synth_sim.out
+```
+
+### 9. View Simulation Results with GTKWave
+
+```bash
+gtkwave pre_synth_sim.vcd
+```
+
+Review and compare waveform outputs from  Makerchip and GTKwave  to ensure design accuracy.
+
+![TLV Output](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab_5/Xreg14.png)
+
+![verilog Output](https://github.com/EshwarAllampally/asic-design-class/blob/main/wv.png)
+
+</details>
+
 ---
 
-*Prepared by:* [Eshwar Allampally]  
-*Student ID:* [MT2024504]  
-*Course:* [ASIC Design]  
-*Instructor:* [Prof. Kunal gosh]
+*Prepared by:* Eshwar Allampally 
+*Student ID:* MT2024504  
+*Course:* ASIC Design  
+*Instructor:* Prof. Kunal gosh
