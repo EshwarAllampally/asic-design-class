@@ -1066,7 +1066,35 @@ Review and compare waveform outputs from  Makerchip and GTKwave  to ensure desig
 
 ![TLV Output](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab_5/Xreg14.png)
 
-![verilog Output](https://github.com/EshwarAllampally/asic-design-class/blob/main/wv.png)
+![verilog Output](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab6-7/Lab6out.png)
+
+</details>
+
+<details>
+  <summary>Lab Session 7</summary>
+
+## Integration of Peripherals for Digital-to-Analog Conversion Using DAC and PLL: [29/08/2024]
+
+### Commands used:
+
+```bash
+iverilog -o ./pre_synth_sim.out -DPRE_SYNTH_SIM src/module/testbench.v -I src/include -I src/module/
+```
+
+```bash
+cd output/
+```
+
+```bash
+./pre_synth_sim.out
+```
+
+```bash
+gtkwave pre_synth_sim.vcd
+```
+### Output Screen-snip: (with username and date Identifiers)
+
+![Output](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab6-7/lab7out.png)
 
 </details>
 
