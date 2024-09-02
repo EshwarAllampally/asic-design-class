@@ -1079,7 +1079,7 @@ In this assignment, we incorporate two peripherals to facilitate the conversion 
 
 **Phase-Locked Loop (PLL)**: The onboard crystal oscillator provides a clock frequency ranging between 12-20 MHz. Since the processor operates at around 100 MHz, an IP/Peripheral is required to elevate this lower frequency clock to a higher frequency. This is where the PLL is utilized. The crystal oscillator clock serves as the input to the PLL, which then outputs a higher frequency clock to our RISC-V core. This clock is subsequently labeled as CPU_clk_GOUR_a0.
 
-Digital-to-Analog Converter (DAC): The processor functions with digital input, but the transmission and reception of signals occur in analog form. Therefore, to transform the digital signal from our RISC-V core into an analog signal, the Digital-to-Analog Converter IP is employed.
+**Digital-to-Analog Converter (DAC)**: The processor functions with digital input, but the transmission and reception of signals occur in analog form. Therefore, to transform the digital signal from our RISC-V core into an analog signal, the Digital-to-Analog Converter IP is employed.
 
 ### Commands used:
 
