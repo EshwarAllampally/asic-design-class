@@ -1104,6 +1104,141 @@ gtkwave pre_synth_sim.vcd
 
 </details>
 
+<details>
+<summary>Lab Session 8</summary>
+<br>
+  
+# Task : RTL design using Verilog with SKY130 Technology [15/10/24]
+<details>
+<summary>Day-1</summary>
+<br>
+  
+## iVerilog based Simulation flow:
+ 
+ ![image](https://github.com/user-attachments/assets/0e2f8052-f0f8-4cfa-bab0-fc83a490afb9)
+
+## LAB-1:
+**Aim: Cloning the required files from github repository:**
+
+**Commands:**
+```
+sudo -i
+sudo apt-get install git
+ls
+cd /home
+mkdir VLSI
+cd VLSI
+git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git
+cd sky130RTLDesignAndSynthesisWorkshop/verilog_files
+ls
+```
+
+**Screenshot of the terminal window:**
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L1_1.png)
+
+## LAB-2:
+**Aim: Introduction to iVerilog gtkwave:**
+
+In this lab we will implement a 2:1 multiplexer.
+
+**Command to view Verilog code & testbench file:**
+```
+gvim tb_good_mux.v -o good_mux.v
+```
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L2_1.png)
+
+**Steps for implementing the waveform on gtkwave:**
+```
+iverilog good_mux.v tb_good_mux.v
+ls
+./a.out
+gtkwave tb_good_mux.vcd
+```
+
+**Screenshots of terminal window & gtkwave waveform:**
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L2_2.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L2_3.png)
+
+## LAB-3:
+**Aim: Synthesis of 2:1 Multiplexer using Yosys and Logic Synthesis:**
+
+## YOSYS:
+A synthesizer is essential in digital design, converting RTL (Register Transfer Level) code into a gate-level netlist. This netlist gives a detailed representation of the circuit, including the logic gates and their connections, forming the groundwork for subsequent steps like placement and routing. In this particular design process, Yosys, an open-source synthesis tool for Verilog HDL, is being used. Yosys employs various optimization strategies to produce an efficient gate-level design from the RTL code.
+
+The primary inputs and outputs are the same in both the RTL design and the synthesized netlist, allowing the same test bench to be used for both.
+
+**Block Diagram of Yosys setup :**
+![image](https://github.com/user-attachments/assets/adf3de9f-78c3-4ea8-b07d-01788b398b76)
+
+
+
+**Block Diagram of Systhesis Verification :**
+![image](https://github.com/user-attachments/assets/72e54532-7abc-43ac-b32e-6a5bde0a9014)
+
+## Logic Synthesis:
+
+**RTL Design:** The design is modeled using a behavioral description in Hardware Description Language (HDL) according to the given specifications.
+
+**Synthesis:** The RTL code is transformed into a gate-level representation, where the design is mapped into logic gates and connections, producing a file called the netlist. In Verilog, a netlist is a representation of a circuit that describes how various components (such as logic gates, flip-flops, or modules) are interconnected. 
+
+## Command steps for Yosys:
+
+**This will invoke/start the yosys:**
+```
+yosys
+```
+
+
+**Load the sky130 standard library:**
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib      
+```
+
+
+**Read the design files:**
+```
+read_verilog good_mux.v
+```
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L3_1.png)
+
+
+**Synthesize the top level module:**
+```
+synth -top good_mux
+```
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L3_2.png)
+
+
+**Map to the standard library:**
+```
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L3_3.png)
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L3_4.png)
+
+
+
+**To view the graphical representation of the generated logic, simply enter:**
+```
+show
+```
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L3_5.png)
+
+
+**To save the netlist, use the write_verilog command. This will generate the netlist file in the current directory:**
+```
+write_verilog -noattr good_mux_netlist.v
+!gvim good_mux_netlist.v
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L3_6.png>
+
+
+
 ---
 
 *Prepared by:* Eshwar Allampally 
