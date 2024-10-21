@@ -2021,6 +2021,450 @@ show
 
 ![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_c.png)
 
+
+
+
+## LAB-7 : 
+## Optimization of various Sequential Designs
+
+* D-Flipflop Constant 1 with Asynchronous Reset (active low)
+* D-Flipflop Constant 2 with Asynchronous Reset (active high)
+* D-Flipflop Constant 3 with Synchronous Reset (active low)
+* D-Flipflop Constant 4 with Synchronous Reset (active high)
+* D-Flipflop Constant 5 with Synchronous Reset
+* Counter Optimization 1
+* Counter Optimization 2
+
+**1. D-Flipflop Constant 1 with Asynchronous Reset (active low):**
+
+Verilog code for the asynchronous reset (active low):
+```
+module dff_const1(input clk, input reset, output reg q); 
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b0;
+	else
+		q <= 1'b1;
+end
+endmodule
+```
+
+Testbench code:
+```
+module tb_dff_const1; 
+	reg clk, reset;
+	wire q;
+
+	dff_const1 uut (.clk(clk),.reset(reset),.q(q));
+
+	initial begin
+		$dumpfile("tb_dff_const1.vcd");
+		$dumpvars(0,tb_dff_const1);
+		// Initialize Inputs
+		clk = 0;
+		reset = 1;
+		#3000 $finish;
+	end
+
+	always #10 clk = ~clk;
+	always #1547 reset=~reset;
+endmodule
+```
+
+Command steps:
+
+Go to the required directory:
+```
+sudo -i  
+cd ~  
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files  
+```
+
+Run the following commands to simulate and observe waveforms:
+```
+iverilog dff_const1.v tb_dff_const1.v  
+ls  
+```
+
+After running the above command, iVerilog stores the output as 'a.out'. Now execute 'a.out' and observe waveforms:
+```
+./a.out  
+gtkwave tb_dff_const1.vcd  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_1.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_2.png)
+
+
+**Observation:** From the waveform, Q output is always high when reset is low, and the reset doesn’t depend on the clock edge.
+
+**Synthesis:**
+
+Go to the required directory:
+```
+cd ~  
+sudo -i  
+cd ~  
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files 
+```
+
+Invoke Yosys:
+```
+yosys  
+```
+
+Read the library:
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+```
+
+Read the Verilog design files:
+```
+read_verilog dff_const1.v  
+```
+
+Synthesize the design:
+```
+synth -top dff_const1  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_3.png)
+
+
+Generate the netlist:
+```
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+```
+
+Create a graphical representation:
+```
+show  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_4.png)
+
+**Observation:** Since the reset is asynchronous and does not depend on the clock edge, the D Flip-Flop remains intact and is not optimized out of the design.
+
+**2. D-Flipflop Constant 2 with Asynchronous Reset (active high)**
+
+Verilog code for the asynchronous reset (active high):
+```
+module dff_const2(input clk, input reset, output reg q); 
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b1;
+	else
+		q <= 1'b1;
+end
+endmodule
+```
+
+Testbench code:
+```
+module tb_dff_const2; 
+	reg clk, reset;
+	wire q;
+
+	dff_const2 uut (.clk(clk),.reset(reset),.q(q));
+
+	initial begin
+		$dumpfile("tb_dff_const2.vcd");
+		$dumpvars(0,tb_dff_const2);
+		// Initialize Inputs
+		clk = 0;
+		reset = 1;
+		#3000 $finish;
+	end
+
+	always #10 clk = ~clk;
+	always #1547 reset=~reset;
+endmodule
+```
+
+Command steps:
+```
+sudo -i  
+cd ~  
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files  
+```
+
+Run the following commands:
+```
+iverilog dff_const2.v tb_dff_const2.v  
+ls  
+./a.out  
+gtkwave tb_dff_const2.vcd  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_5.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_6.png)
+
+**Observation:** The waveform shows that the Q output remains consistently high, regardless of the reset signal.
+
+**Synthesis:**
+```
+cd ~  
+sudo -i  
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files  
+```
+
+Invoke Yosys:
+```
+yosys  
+```
+
+Read the library:
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+```
+
+Read the Verilog files:
+```
+read_verilog dff_const2.v  
+```
+
+Synthesize the design:
+```
+synth -top dff_const2  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_7.png)
+
+Generate the netlist:
+```
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+```
+
+Graphical representation:
+```
+show  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_8.png)
+
+**Observation:** The output Q is always 1 and does not depend on the reset edge; therefore, the D Flip-Flop has been optimized away.
+
+
+**3. D-Flipflop Constant 3 with Synchronous Reset (active low)**
+
+Verilog code for Synchronous reset (active low):
+```
+module dff_const3(input clk, input reset, output reg q); 
+	reg q1;
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+		begin
+			q <= 1'b1;
+			q1 <= 1'b0;
+		end
+		else
+		begin	
+			q1 <= 1'b1;
+			q <= q1;
+		end
+	end
+endmodule
+```
+
+Testbench is similar to the previous one.
+
+Command steps:
+```
+sudo -i  
+cd ~  
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files  
+```
+
+Run the following commands:
+```
+iverilog dff_const3.v tb_dff_const3.v  
+ls  
+./a.out  
+gtkwave tb_dff_const3.vcd  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_9.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_a.png)
+
+**Synthesis:**
+```
+cd ~  
+sudo -i  
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files  
+```
+
+Invoke Yosys:
+```
+yosys  
+```
+
+Read the library:
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+```
+
+Read Verilog files:
+```
+read_verilog dff_const3.v  
+```
+
+Synthesize the design:
+```
+synth -top dff_const3  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_b.png)
+
+Generate netlist:
+```
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+```
+
+Graphical representation:
+```
+show  
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_c.png)
+
+**Observation:** This module implements a D Flip-Flop where the output Q is updated on every clock cycle following a reset.
+
+
+**4. D-Flipflop Constant 4 with Synchronous Reset (active high)**
+
+Verilog Code:
+```
+module dff_const4(input clk, input reset, output reg q); 
+	reg q1;
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+		begin
+			q <= 1'b1;
+			q1 <= 1'b1;
+		end
+		else
+		begin	
+			q1 <= 1'b1;
+			q <= q1;
+		end
+	end
+endmodule
+```
+
+**Testbench** follows the same pattern as earlier.
+
+**Synthesis** steps are identical to those described previously.
+
+**gtkwave waveform:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_d.png)
+
+**Synthesis:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_e.png)
+
+**Netlist:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_f.png)
+
+**Observations:** When synthesized, this design will yield a Flip-Flop where the output q is always 1, independent of the reset or clock states.
+
+
+**5. D-Flipflop Constant 5 with Synchronous Reset**
+
+Verilog Code:
+```
+module dff_const5(input clk, input reset, output reg q); 
+	reg q1;
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+		begin
+			q <= 1'b0;
+			q1 <= 1'b0;
+		end
+		else
+		begin	
+			q1 <= 1'b1;
+			q <= q1;
+		end
+	end
+endmodule
+```
+
+**Simulation** and **Synthesis** follows the same steps as above.
+
+**gtkwave waveform:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_g.png)
+
+**Synthesis:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_i.png)
+
+**Netlist:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_j.png)
+
+**Observations:** When synthesized, the design will result in a flip-flop where q is always 1 after the first clock cycle post-reset.
+
+
+**6. Counter Optimization 1**
+
+Verilog Code:
+```
+module counter_opt (input clk, input reset, output q);
+	reg [2:0] count;
+	assign q = count[0];
+	always @(posedge clk,posedge reset)
+	begin
+		if(reset)
+			count <= 3'b000;
+		else
+			count <= count + 1;
+	end
+endmodule
+```
+
+Following similar steps as above for **synthesis** and **graphical representation:**
+
+**gtkwave waveform:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_k.png)
+
+**Synthesis:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_l.png)
+
+**Netlist:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_m.png)
+
+**7. Counter Optimization 2**
+
+Verilog Code:
+```
+module counter_opt2 (input clk, input reset, output q);
+	reg [2:0] count;
+	assign q = (count[2:0] == 3'b100);
+	always @(posedge clk,posedge reset)
+	begin
+		if(reset)
+			count <= 3'b000;
+		else
+			count <= count + 1;
+	end
+endmodule
+```
+
+Following similar steps as above for **synthesis** and **Netlist:**
+
+**Synthesis:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_n.png)
+
+**Netlist:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab7/d3_l7_o.png)
+
+</details>
+
 ---
 
 *Prepared by:* Eshwar Allampally 
