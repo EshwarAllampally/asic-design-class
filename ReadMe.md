@@ -1735,6 +1735,292 @@ Follow the steps below to synthesize the synchronous reset D Flip-Flop design:
 </details>
 
 
+<details>
+<summary>Day-3</summary>
+<br>
+  
+# Combinational and sequential optmizations:
+
+## LAB-6:
+## Optimization of Various Combinational Designs using Yosys:
+
+This section demonstrates the synthesis and optimization of various combinational designs using Yosys.
+
+## Combinational Designs:
+1. **2-input AND gate**
+2. **2-input OR gate**
+3. **3-input AND gate**
+4. **2-input XNOR gate (3-input Boolean Logic)**
+5. **Multiple Module Optimization-1**
+6. **Multiple Module Optimization-2**
+
+---
+
+## 1. 2-input AND Gate
+
+### Verilog Code:
+```
+module opt_check(input a, input b, output y);
+	assign y = a?b:0;
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+1. Navigate to the required directory:
+```  
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+```
+2. Launch Yosys:
+```
+yosys
+```
+
+3. Read the standard cell library:
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+4. Read the Verilog design files:
+```
+read_verilog opt_check.v
+```
+
+5. Synthesize the design:
+```
+synth -top opt_check
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_1.png)
+
+
+6. Generate the netlist:
+```
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+7. Remove unused or redundant logic:
+```
+opt_clean -purge
+```
+
+8. Create a graphical representation:
+```
+show
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_2.png)
+
+---
+
+## 2. 2-input OR Gate
+
+### Verilog Code:
+```
+module opt_check2(input a, input b, output y);
+	assign y = a?1:b;
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+Repeat the same steps as for the 2-input AND gate with the following changes:
+
+1. Use `opt_check2.v` as the Verilog file:
+```
+read_verilog opt_check2.v
+```
+
+2. Synthesize the design with `opt_check2`:
+```
+synth -top opt_check2
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_3.png)
+
+
+**NetList:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_4.png)
+
+
+---
+
+## 3. 3-input AND Gate
+
+### Verilog Code:
+```
+module opt_check3(input a, input b, input c, output y);
+	assign y = a?(b?c:0):0;
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+Follow the same steps as for the 2-input AND gate with the following changes:
+
+1. Use `opt_check3.v` as the Verilog file:
+```
+read_verilog opt_check3.v
+```
+
+2. Synthesize the design with `opt_check3`:
+synth -top opt_check3
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_5.png)
+
+
+**NetList:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_6.png)
+
+---
+
+## 4. 2-input XNOR Gate (3-input Boolean Logic)
+
+### Verilog Code:
+```
+module opt_check4(input a, input b, input c, output y);
+	assign y = a ? (b ? ~c : c) : ~c;
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+Follow the same steps as for the 2-input AND gate with the following changes:
+
+1. Use `opt_check4.v` as the Verilog file:
+read_verilog opt_check4.v
+
+2. Synthesize the design with `opt_check4`:
+```
+synth -top opt_check4
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_7.png)
+
+
+**NetList:**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_8.png)
+
+---
+
+## 5. Multiple Module Optimization-1
+
+### Verilog Code:
+```
+module sub_module1(input a, input b, output y);
+	assign y = a & b;
+endmodule
+module sub_module2(input a, input b, output y);
+	assign y = a^b;
+endmodule
+
+module multiple_module_opt(input a, input b, input c, input d, output y);
+	wire n1, n2, n3;
+	
+	sub_module1 U1 (.a(a), .b(1'b1), .y(n1));
+	sub_module2 U2 (.a(n1), .b(1'b0), .y(n2));
+	sub_module2 U3 (.a(b), .b(d), .y(n3));
+	
+	assign y = c | (b & n1);
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+1. Navigate to the required directory:
+```
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+```
+
+2. Launch Yosys:
+```
+yosys
+```
+
+3. Read the standard cell library:
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+4. Read the Verilog design files:
+```
+read_verilog multiple_module_opt.v
+```
+
+5. Synthesize the design:
+```
+synth -top multiple_module_opt
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_9.png)
+
+
+6. Generate the netlist:
+```
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+7. Remove unused or redundant logic:
+```
+opt_clean -purge
+```
+
+8. Flatten the design to merge hierarchical modules:
+```
+flatten
+```
+
+9. Create a graphical representation:
+```
+show
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_a.png)
+
+---
+
+## 6. Multiple Module Optimization-2
+
+### Verilog Code:
+```
+module sub_module(input a, input b, output y);
+	assign y = a & b;
+endmodule
+
+module multiple_module_opt2(input a, input b, input c, input d, output y);
+	wire n1, n2, n3;
+	
+	sub_module U1 (.a(a), .b(1'b0), .y(n1));
+	sub_module U2 (.a(b), .b(c), .y(n2));
+	sub_module U3 (.a(n2), .b(d), .y(n3));
+	sub_module U4 (.a(n3), .b(n1), .y(y));
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+Follow the same steps as for Multiple Module Optimization-1 with the following changes:
+
+1. Use `multiple_module_opt2.v` as the Verilog file:
+```
+read_verilog multiple_module_opt2.v
+```
+
+2. Synthesize the design with `multiple_module_opt2`:
+```
+synth -top multiple_module_opt2
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_b.png)
+
+3. Flatten the design and create a graphical representation:
+```
+flatten
+show
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_3_Lab6/d3_l6_c.png)
+
 ---
 
 *Prepared by:* Eshwar Allampally 
