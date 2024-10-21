@@ -2465,6 +2465,191 @@ Following similar steps as above for **synthesis** and **Netlist:**
 
 </details>
 
+<details>
+<summary>Day-4</summary>
+<br>
+
+#  GLS, blocking vs non-blocking and Synthesis-Simulation mismatch:
+
+## LAB-8:
+## Gate Level Simulation (GLS), Synthesis-Simulation Mismatch, Non-Blocking and Blocking Statements
+
+### Gate Level Simulation (GLS):
+
+Gate Level Simulation is a vital step in verifying digital circuits. It involves simulating the synthesized netlist—a lower-level representation of the design—using a testbench to verify logical correctness and timing behavior. By comparing the simulated outputs with the expected results, GLS ensures that synthesis has not introduced any errors and that the design meets performance requirements.
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_1.png)
+
+
+### Importance of Sensitivity Lists:
+
+Accurate sensitivity lists are critical for ensuring correct circuit behavior. Incomplete sensitivity lists may result in unexpected latches. Similarly, blocking and non-blocking assignments within `always` blocks exhibit different execution behaviors. Incorrect use of blocking assignments may unintentionally create latches, leading to synthesis and simulation mismatches. To avoid these issues, circuit behavior should be carefully analyzed to ensure proper sensitivity lists and assignment usage.
+
+### GLS Example 1: 2-to-1 MUX using Ternary Operator
+
+Verilog code:
+```
+module ternary_operator_mux (input i0, input i1, input sel, output y);
+assign y = sel ? i1 : i0;
+endmodule
+```
+
+Simulation steps:
+```
+iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_2.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_3.png)
+
+
+
+### Synthesis:
+
+1. Invoke yosys:
+```
+yosys
+```
+
+2. Load the library:
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+3. Read the design:
+```
+read_verilog ternary_operator_mux.v
+```
+
+4. Synthesize the design:
+```
+synth -top ternary_operator_mux
+```
+
+5. Generate the netlist:
+```
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+6. Create a graphical representation:
+```
+show
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_4.png)
+
+
+To view the netlist:
+```
+write_verilog -noattr ternary_operator_mux_net.v
+gvim ternary_operator_mux_net.v
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_5.png)
+
+
+### GLS Execution
+
+Navigate to the appropriate directory and simulate:
+```
+sudo -i
+cd ~/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux_net.v tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_6.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_7.png)
+
+
+### Example 2: 2-to-1 Bad MUX Design
+
+Verilog code:
+```
+module bad_mux(input i0, input i1, input sel, output reg y);
+    always@(sel) begin
+        if(sel) y <= i1;
+        else y <= i0;
+    end
+endmodule
+```
+
+Simulation steps:
+```
+iverilog bad_mux.v tb_bad_mux.v
+./a.out
+gtkwave tb_bad_mux.vcd
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_8.png)
+
+### Example 3: Blocking Caveat
+
+Verilog code:
+```
+module blocking_caveat(input a, input b, input c, output reg d);
+    reg x;
+    always@(*) begin
+        d = x & c;
+        x = a | b;
+    end
+endmodule
+```
+
+Simulation steps:
+```
+iverilog blocking_caveat.v tb_blocking_caveat.v
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_a.png)
+
+As shown in the waveform, when both A and B are zero, the expected output of the OR gate (X) should be zero, which would result in the AND gate output (D) also being zero. However, due to the blocking assignment in the design, the AND gate input X retains the previous value of A|B, which is one. This leads to a mismatch between the expected and actual output, highlighting the discrepancy caused by the blocking statement.
+
+
+Following the same steps as above for **synthesis** and **graphical representation:**
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_b.png)
+
+**Netlist**
+```
+write_verilog -noattr blocking_caveat_net.v
+!gvim blocking_caveat_net.v
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_c.png)
+
+### Gate Level Synthesis
+
+Navigate to the appropriate directory and simulate:
+```
+sudo -i
+cd /home/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v blocking_caveat_net.v tb_blocking_caveat.v
+ls
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_4/d4_l8_d.png)
+
+These waveforms represent the results of the Gate Level Synthesis for the Blocking Caveat, illustrating how the design behaves at the gate level with respect to the blocking assignment issue.
+
+</details>
+</details>
+
+
+
+
+
+</details>
+
 ---
 
 *Prepared by:* Eshwar Allampally 
