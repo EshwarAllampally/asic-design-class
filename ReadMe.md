@@ -1237,7 +1237,7 @@ write_verilog -noattr good_mux_netlist.v
 
 ![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_8/Day_1/d1_L3_6.png)
 
-
+</details>
 
 <details>
 <summary>Day-2</summary>
