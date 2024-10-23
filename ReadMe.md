@@ -2642,10 +2642,114 @@ gtkwave tb_blocking_caveat.vcd
 These waveforms represent the results of the Gate Level Synthesis for the Blocking Caveat, illustrating how the design behaves at the gate level with respect to the blocking assignment issue.
 
 </details>
+
+
+<details>
+<summary>Lab Session 9 </summary>
+<br>
+
+# Aim: Synthesize the RISC-V core and compare its output with functional simulations.
+
+## Steps:
+
+1. **Copy source files:**
+
+   First copy the `src` folder from `VSDBabySoC` directory to your `VLSI` folder. Then, move this folder into the `sky130RTLDesignAndSynthesisWorkshop` directory using the following commands:
+   ```
+   sudo -i
+   cd /home/VLSI/
+   cp -r src sky130RTLDesignAndSynthesisWorkshop/
+   ```
+   
+2. **Navigate to the target directory:**
+
+   Move to the correct directory to begin the synthesis process:
+   ```
+   cd ~/VLSI/sky130RTLDesignAndSynthesisWorkshop/src/module
+   ```
+   
+3. **Start Yosys for synthesis:**
+
+   Launch `yosys` to begin synthesizing the design:
+   ```
+   yosys
+   ```
+   
+4. **Load the standard cell library:**
+
+   Import the necessary library for synthesis:
+   ```
+   read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+   ```
+   
+5. **Load the Verilog design files:**
+
+   Read in the Verilog files for design:
+   ```
+   read_verilog clk_gate.v
+   read_verilog rvmyth.v
+   ```
+
+   ![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_9/1.png)
+
+   
+6. **Synthesize the RISC-V design:**
+
+   Run the synthesis command for the top module `rvmyth`:
+   ```
+   synth -top rvmyth
+   ```
+   
+7. **Generate the netlist:**
+
+   Output the synthesized netlist:
+   ```
+   write_verilog -noattr rvmyth.v
+   gvim rvmyth.v
+   exit
+   ```
+   
+   ![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_9/3.png)
+
+   
+8. **Simulate and observe the output waveform:**
+
+   Use `iverilog` to simulate the synthesized RISC-V and generate the waveform:
+   ```
+   iverilog ../../my_lib/verilog_model/primitives.v ../../my_lib/verilog_model/sky130_fd_sc_hd.v rvmyth.v testbench.v vsdbabysoc.v avsddac.v avsdpll.v clk_gate.v
+   ls
+   ./a.out
+   gtkwave dump.vcd
+   ```
+
+   ![Image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_9/4.png)
+
+   **The waveform shows the generated sawtooth waveform and cells.**
+
+   
+## "Functional Simulations (Previously done in LAB-7)":
+
+**Command Steps:**
+```
+cd ~
+cd VSDBabySoC
+iverilog -o ./pre_synth_sim.out -DPRE_SYNTH_SIM src/module/testbench.v -I src/include -I src/module/
+./pre_synth_sim.out
+gtkwave pre_synth_sim.vcd
+```
+
+## COMPARISON of Functionality vs Synthesized output waveform:
+
+**LAB-7 Waveform (O1):**
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_9/5.png)
+
+**LAB-9 Waveform (O2):**
+![Image](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_9/4.png)
+
+
+## CONCLUSION : The Functionality vs Synthesized output waveform matches, i.e, O1 = O2.
+
 </details>
-
-
-
 
 
 </details>
