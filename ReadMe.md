@@ -2642,6 +2642,7 @@ gtkwave tb_blocking_caveat.vcd
 These waveforms represent the results of the Gate Level Synthesis for the Blocking Caveat, illustrating how the design behaves at the gate level with respect to the blocking assignment issue.
 
 </details>
+</details>
 
 
 <details>
