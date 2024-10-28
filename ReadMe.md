@@ -2752,8 +2752,73 @@ gtkwave pre_synth_sim.vcd
 
 </details>
 
+<details>
+  <summary>Lab Session 10</summary>
+
+# Static Timing Analysis for a Synthesized RISC-V Core with OpenSTA
+
+## Tools Installation
+**CUDD**
+Download CUDD from **[here](https://github.com/davidkebo/cudd/blob/main/cudd_versions/cudd-3.0.0.tar.gz)** and move downloaded file to `home` directory
+```
+cd
+tar xvfz cudd-3.0.0.tar.gz
+cd cudd-3.0.0
+./configure
+make
+```
+**openSTA**
+```
+cd
+sudo apt-get install cmake clang gcc tcl swig bison flex
+
+git clone https://github.com/parallaxsw/OpenSTA.git
+cd OpenSTA
+cmake -DCUDD_DIR=/home/eshwar/cudd-3.0.0
+make
+cd app
+./sta
+```
+
+![sta](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_10/l10_1.png)
+
+```
+cd /home/eshwar/OpenSTA
+mkdir lab10
+```
+Download all **[these files](https://github.com/EshwarAllampally/asic-design-class/tree/main/lab_10)** to directory `lab10`
+
+**Steps to do Timing Analysis**
+- Clock period = 9.2ns
+- Setup uncertainty and clock transition will be 5% of clock
+- Hold uncertainty and data transition will be 8% of clock. 
+
+```
+cd /home/eshwar/OpenSTA/app
+./sta
+
+read_liberty /home/eshwar/OpenSTA/lab10/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog /home/eshwar/OpenSTA/lab10/eshwar_riscv_netlist.v
+link_design rvmyth
+
+create_clock -name clk -period 9.2 [get_ports clk]
+set_clock_uncertainty [expr 0.05 * 9.2] -setup [get_clocks clk]
+set_clock_uncertainty [expr 0.08 * 9.2] -hold [get_clocks clk]
+set_clock_transition [expr 0.05 * 9.2] [get_clocks clk]
+set_input_transition [expr 0.08 * 9.2] [all_inputs]
+
+report_checks -path_delay max
+report_checks -path_delay min
+```
+![Img](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_10/l10_5.png)
+
+![Img](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_10/l10_6.png)
 
 </details>
+
+</details>
+
+
 
 ---
 
