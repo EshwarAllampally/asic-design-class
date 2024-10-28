@@ -2826,7 +2826,7 @@ read_liberty -max ./lib/avsddac.lib
 read_verilog ./src/module/vsdbabysoc_synth.v
 link_design vsdbabysoc
 read_sdc ./src/sdc/sta_post_synth.sdc
-
+```
 
 ![Img](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_10/l10_5.png)
 
