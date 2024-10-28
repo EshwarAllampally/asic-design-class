@@ -2810,6 +2810,24 @@ set_input_transition [expr 0.08 * 9.2] [all_inputs]
 report_checks -path_delay max
 report_checks -path_delay min
 ```
+
+To execute the OpenSTA and obtain the timing reports, run the below command,
+```
+sta scripts/sta.conf
+```
+Following are contents of the sta.conf file,
+```
+read_liberty -min ./lib/sta/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_liberty -max ./lib/sta/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_liberty -min ./lib/avsdpll.lib
+read_liberty -max ./lib/avsdpll.lib
+read_liberty -min ./lib/avsddac.lib
+read_liberty -max ./lib/avsddac.lib
+read_verilog ./src/module/vsdbabysoc_synth.v
+link_design vsdbabysoc
+read_sdc ./src/sdc/sta_post_synth.sdc
+
+
 ![Img](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_10/l10_5.png)
 
 ![Img](https://github.com/EshwarAllampally/asic-design-class/blob/main/lab_10/l10_6.png)
