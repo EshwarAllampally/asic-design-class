@@ -2958,6 +2958,8 @@ The total negative slack and worst negative slacks are provided in the detailed 
 
 <details> 
 <summary> Day 1 - Introduction to Open-source EDA, OpenLANE, and Sky130 PDK </summary>
+
+
 Perform synthesis for the 'picorv32a' design using OpenLANE. Follow these commands to start the OpenLANE flow and complete the synthesis process:
 
 ```bash
