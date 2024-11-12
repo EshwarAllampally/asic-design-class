@@ -2951,6 +2951,58 @@ The total negative slack and worst negative slacks are provided in the detailed 
 
 </details>
 
+<details> 
+<summary>Lab Session 12</summary>
+
+# Complete the Advanced Physical Design using OpenLane workshop on VSDIAT platform. Create an inverter incorporating your name and document all laboratory exercises
+
+<details> 
+<summary> Day 1 - Introduction to Open-source EDA, OpenLANE, and Sky130 PDK </summary>
+Perform synthesis for the 'picorv32a' design using OpenLANE. Follow these commands to start the OpenLANE flow and complete the synthesis process:
+
+```bash
+# Navigate to the OpenLANE flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
+# Since the docker command has been aliased, use 'docker' to launch the OpenLANE flow in a container
+docker
+
+# Once inside the docker container, open the OpenLANE flow in interactive mode with the following command
+./flow.tcl -interactive
+
+# Load the required OpenLANE package version 0.9 for proper operation
+package require openlane 0.9
+
+# Prepare the design environment for 'picorv32a' by running the prep command
+prep -design picorv32a
+
+# With the design prepared, start the synthesis process
+run_synthesis
+
+# Exit the OpenLANE environment
+exit
+
+# Exit the docker container
+exit
+```
+
+## Relevant screenshots:
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab_12/day1/day1_1.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab_12/day1/day1_2.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab_12/day1/day1_3.png)
+
+![image](https://github.com/EshwarAllampally/asic-design-class/blob/main/Lab_12/day1/day1_4.png)
+
+
+Calculation of Flop Ratio and DFF % based on the synthesis statistics report.
+
+</details>
+
+</details>
 
 
 ---
