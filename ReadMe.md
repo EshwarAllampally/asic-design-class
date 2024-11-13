@@ -3002,8 +3002,115 @@ exit
 
 Calculation of Flop Ratio and DFF % based on the synthesis statistics report.
 
+
+
 </details>
 
+<details>
+
+<summary>Day 2:  Good floorplan vs bad floorplan and introduction to library cells</summary> 
+
+## 1. Run 'picorv32a' design floorplan using OpenLANE flow and generate necessary outputs.
+Commands to invoke the OpenLANE flow and perform floorplan
+```
+# Change directory to openlane flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
+# Since we have aliased the long command to 'docker' we can invoke the OpenLANE flow docker sub-system by just running this command
+docker
+# Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
+
+# Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+# Now we can run floorplan
+run_floorplan
+
+```
+
+Screenshot of floorplan run
+![image](https://github.com/user-attachments/assets/cad1ca0a-20fa-49ba-ae21-c91ce5d09116)
+
+![image](https://github.com/user-attachments/assets/bcde11ad-9e5c-461a-8750-29c4bb51bfa8)
+
+## 2. Calculate the die area in microns from the values in floorplan def.
+
+Screenshot of contents of floorplan def
+![image](https://github.com/user-attachments/assets/1dceeb35-ac5d-456e-887c-6771837c2365)
+
+## 3. Load generated floorplan def in magic tool and explore the floorplan.
+Commands to load floorplan def in magic in another terminal
+```
+# Change directory to path containing generated floorplan def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/17-03_12-06/results/floorplan/
+
+# Command to load the floorplan def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+```
+Screenshots of floorplan def in magic
+![image](https://github.com/user-attachments/assets/9963022b-d9a6-43e0-bc6d-20269437f599)
+
+Equidistant placement of ports
+![2 6](https://github.com/user-attachments/assets/18ba5ca0-606e-4df4-b663-7b04c16abc01)
+
+Port layer as set through config.tcl
+![image](https://github.com/user-attachments/assets/8663829e-1468-421f-bae2-e7a1632f8365)
+![image](https://github.com/user-attachments/assets/489ae307-d941-4f7b-b537-accd86cebdba)
+
+Decap Cells and Tap Cells
+
+![image](https://github.com/user-attachments/assets/fc6e401b-4619-4804-87fb-5407cc42bf6d)
+
+Unplaced standard cells at the origin
+![2 8](https://github.com/user-attachments/assets/2cd7f768-a3ba-4989-a7cf-1384f10d8cf3)
+
+### 4. Run 'picorv32a' design congestion aware placement using OpenLANE flow and generate necessary outputs.
+Command to run placement
+```
+# Congestion aware placement by default
+run_placement
+```
+
+Screenshots of placement run
+
+![image](https://github.com/user-attachments/assets/11e3c9a4-0125-42e4-82f6-3ff975597d2a)
+
+### 5. Load generated placement def in magic tool and explore the placement.
+Commands to load placement def in magic in another terminal
+```
+# Change directory to path containing generated placement def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/17-03_12-06/results/placement/
+
+# Command to load the placement def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+Screenshots of floorplan def in magic
+
+![image](https://github.com/user-attachments/assets/7c378875-931e-4406-8b27-945585d07a32)
+![2 15](https://github.com/user-attachments/assets/b1288cac-9005-4ebe-a9fd-35e8a6282540)
+
+Commands to exit from current run
+```
+# Exit from OpenLANE flow
+exit
+
+# Exit from OpenLANE flow docker sub-system
+exit
+```
+</details>
+
+<details>
+	<summary>Day 3: Design library cell using Magic Layout and ngspice characterization</summary>
+	
+</details>
 </details>
 
 
