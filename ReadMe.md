@@ -3109,7 +3109,101 @@ exit
 
 <details>
 	<summary>Day 3: Design library cell using Magic Layout and ngspice characterization</summary>
-	
+
+ 1. Clone custom inverter standard cell design from github repository
+  ```  
+# Change directory to openlane
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# Clone the repository with custom inverter design
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+
+# Change into repository directory
+cd vsdstdcelldesign
+
+# Copy magic tech file to the repo directory for easy access
+cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
+
+# Check contents whether everything is present
+ls
+
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_inv.mag &
+```
+![3 1](https://github.com/user-attachments/assets/b84fd26e-0af8-420a-95cf-7f7b3d63eded)
+
+### 2. Load the custom inverter layout in magic and explore.
+Screenshot of custom inverter layout in magic
+
+![image](https://github.com/user-attachments/assets/2be8f2c4-9f3d-45d4-93e7-502c769dd63e)
+
+NMOS and PMOS identified
+
+![3 3](https://github.com/user-attachments/assets/a75f41ac-54d8-4c7d-b2e5-fe4f5525822f)
+
+![image](https://github.com/user-attachments/assets/ad5e2986-75af-46d4-80ef-823f22fd3d22)
+
+Output Y connectivity to PMOS and NMOS drain verified
+
+![image](https://github.com/user-attachments/assets/ef029b79-9c43-4647-b905-868ec5a63f6c)
+
+NMOS source connectivity to VSS (here VGND) verified
+
+![image](https://github.com/user-attachments/assets/a4c779c9-3e5d-4f6d-83b0-db970835158d)
+Deleting necessary files
+
+![image](https://github.com/user-attachments/assets/6f44fd16-abcb-40dd-af21-85a17df15c15)
+
+## 3. Spice extraction of inverter in magic.
+Commands for spice extraction of the custom inverter layout to be used in tkcon window of magic
+```
+# Check current directory
+pwd
+
+# Extraction command to extract to .ext format
+extract all
+
+# Before converting ext to spice this command enable the parasitic extraction also
+ext2spice cthresh 0 rthresh 0
+
+# Converting to ext to spice
+ext2spice
+```
+Screenshot of tkcon window after running above commands
+![image](https://github.com/user-attachments/assets/6effe560-fda8-40c0-9882-d1bf193d673c)
+
+Screenshot of created spice file
+
+![image](https://github.com/user-attachments/assets/4522a8e8-81eb-418f-a58a-4a8b63c9b649)
+
+## 4. Editing the spice model file for analysis through simulation.
+Measuring unit distance in layout grid
+
+![image](https://github.com/user-attachments/assets/1e602dad-6106-4326-a18d-b061cd0f75c1)
+
+Final edited spice file ready for ngspice simulation
+
+![image](https://github.com/user-attachments/assets/01e95d50-15e7-488f-8605-2cc4bb73691c)
+
+## 5. Post-layout ngspice simulations.
+Commands for ngspice simulation
+```
+# Command to directly load spice file for simulation to ngspice
+ngspice sky130_inv.spice
+
+# Now that we have entered ngspice with the simulation spice file loaded we just have to load the plot
+plot y vs time a
+```
+Screenshots of ngspice run
+![3 11](https://github.com/user-attachments/assets/ef624724-309c-4261-8953-334bf87a95aa)
+
+![3 12](https://github.com/user-attachments/assets/14331b9e-a6c4-4be5-9fa0-f567d390060d)
+
+Plot:
+
+![image](https://github.com/user-attachments/assets/5690d86e-c55d-48e6-902d-6e05064756ba)
+
+
 </details>
 </details>
 
