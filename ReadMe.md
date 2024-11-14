@@ -3773,6 +3773,93 @@ report_checks -path_delay min_max -fields {slew trans net cap input_pins} -forma
 exit
 ```
 Screenshots of commands run and timing report generated
+
+![image](https://github.com/user-attachments/assets/bd1f8bc6-7579-4839-83e4-27e4b52a7f8a)
+![image](https://github.com/user-attachments/assets/780f255b-5324-434e-9c46-660699f245b3)
+![image](https://github.com/user-attachments/assets/2b848c5c-05cb-4e95-820e-14281643645d)
+
+## 13. Explore post-CTS OpenROAD timing analysis by removing 'sky130_fd_sc_hd__clkbuf_1' cell from clock buffer list variable 'CTS_CLK_BUFFER_LIST'.
+
+Commands to be run in OpenLANE flow to do OpenROAD timing analysis after changing `CTS_CLK_BUFFER_LIST`
+```
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+
+# Removing 'sky130_fd_sc_hd__clkbuf_1' from the list
+set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST) 0 0]
+
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+
+# Checking current value of 'CURRENT_DEF'
+echo $::env(CURRENT_DEF)
+
+# Setting def as placement def
+set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/placement/picorv32a.placement.def
+
+# Run CTS again
+run_cts
+
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+
+# Command to run OpenROAD tool
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/24-03_10-03/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/cts/picorv32a.cts.def
+
+# Creating an OpenROAD database to work with
+write_db pico_cts1.db
+
+# Loading the created database in OpenROAD
+read_db pico_cts.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/synthesis/picorv32a.synthesis_cts.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Report hold skew
+report_clock_skew -hold
+
+# Report setup skew
+report_clock_skew -setup
+
+# Exit to OpenLANE flow
+exit
+
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+
+# Inserting 'sky130_fd_sc_hd__clkbuf_1' to first index of list
+set ::env(CTS_CLK_BUFFER_LIST) [linsert $::env(CTS_CLK_BUFFER_LIST) 0 sky130_fd_sc_hd__clkbuf_1]
+
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+```
+Screenshots of commands run and timing report generated
+![image](https://github.com/user-attachments/assets/c1ec1ff3-3930-49d2-8d41-4985adaf0cbc)
+![image](https://github.com/user-attachments/assets/48b366cd-9dba-4e53-b6ca-f3c7f7c045fd)
+![image](https://github.com/user-attachments/assets/f58fa1bb-fa3e-40eb-ba1a-8714bb0d08d1)
+![image](https://github.com/user-attachments/assets/fbaf0dca-e222-4ad1-a6b6-02d4916b26cf)
+![image](https://github.com/user-attachments/assets/42a36bde-f886-431c-b46c-5e9b555f7e11)
+
 </details>
 </details>
 
