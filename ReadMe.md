@@ -3863,9 +3863,8 @@ Screenshots of commands run and timing report generated
 </details>
 
 <details>
-<summary>Day 5</summary>
+<summary>Day 5: Final steps for RTL2GDS using tritonRoute and openSTA:</summary>
 
-## Final steps for RTL2GDS using tritonRoute and openSTA:
 
 ### Theory:
 
@@ -3989,11 +3988,17 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 **Screenshots of routed def:**
 
+![WhatsApp Image 2024-11-15 at 01 38 02_6a2d2a92](https://github.com/user-attachments/assets/228033ea-11d3-4824-b07b-6d52c6a6641e)
+
 
 
 
 **Screenshot of fast route guide present in openlane/designs/picorv32a/runs/14-11_19-03/tmp/routing directory:**
 ![image](https://github.com/user-attachments/assets/a980da75-e4aa-407f-92ea-3d3c91585863)
+
+![image](https://github.com/user-attachments/assets/779331d3-e21f-44fc-b305-9b0def0b90ab)
+
+![image](https://github.com/user-attachments/assets/a2e248ff-bf6e-4f2d-bc92-b6b3ec175aae)
 
 
 **3. Post-Route parasitic extraction using SPEF extractor.:**
@@ -4060,9 +4065,6 @@ Screenshots of commands run and timing report generated:
 
 
  </details>
-
-
-
  
 </details>
 
