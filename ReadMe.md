@@ -3973,9 +3973,12 @@ run_routing
 ```
 
 **Screenshots of routing run:**
+
 ![image](https://github.com/user-attachments/assets/f0266676-3568-493f-82fa-1e2c48346117)
 
+
 ![image](https://github.com/user-attachments/assets/8a153f9b-7779-49ba-9462-168bc1fa96bb)
+
 
 **Commands to load routed def in magic in another terminal:**
 ```
@@ -3990,15 +3993,15 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 ![WhatsApp Image 2024-11-15 at 01 38 02_6a2d2a92](https://github.com/user-attachments/assets/228033ea-11d3-4824-b07b-6d52c6a6641e)
 
+![image](https://github.com/user-attachments/assets/779331d3-e21f-44fc-b305-9b0def0b90ab)
+
+![image](https://github.com/user-attachments/assets/a2e248ff-bf6e-4f2d-bc92-b6b3ec175aae)
 
 
 
 **Screenshot of fast route guide present in openlane/designs/picorv32a/runs/14-11_19-03/tmp/routing directory:**
 ![image](https://github.com/user-attachments/assets/a980da75-e4aa-407f-92ea-3d3c91585863)
 
-![image](https://github.com/user-attachments/assets/779331d3-e21f-44fc-b305-9b0def0b90ab)
-
-![image](https://github.com/user-attachments/assets/a2e248ff-bf6e-4f2d-bc92-b6b3ec175aae)
 
 
 **3. Post-Route parasitic extraction using SPEF extractor.:**
@@ -4010,6 +4013,7 @@ cd Desktop/work/tools/SPEF_EXTRACTOR
 # Command extract spef
 python3 main.py /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/14-11_19-03/tmp/merged.lef /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/14-11_19-03/results/routing/picorv32a.def
 ```
+
 
 **4.Post-Route OpenSTA timing analysis with the extracted parasitics of the route:**
 
@@ -4054,6 +4058,7 @@ report_checks -path_delay min_max -fields {slew trans net cap input_pins} -forma
 # Exit to OpenLANE flow
 exit
 ```
+
 
 Screenshots of commands run and timing report generated:
 
