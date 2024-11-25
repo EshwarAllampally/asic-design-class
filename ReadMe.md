@@ -4071,9 +4071,12 @@ Screenshots of commands run and timing report generated:
 
  </details>
 
-## Task-13: OpenRoad Physical Design
+ </details>
 
-#### Path to Zetta-Scale Computing
+ <details>
+  <summary>Lab Session 13</summary>
+
+## OpenRoad Physical Design: [19/11/2024]
 
 **Introduction:**
 
@@ -4719,9 +4722,8 @@ make gui_final
 ![Screenshot from 2024-11-26 02-52-27](https://github.com/user-attachments/assets/cef992d0-f992-45a2-9ba0-17ec66843cb5)
 
 ![Screenshot from 2024-11-26 02-52-36](https://github.com/user-attachments/assets/d63412d9-a6ef-41cc-afae-748b96716d2a)
- 
-</details>
 
+ </details>
 
 ---
 
