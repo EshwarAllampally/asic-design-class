@@ -4637,6 +4637,10 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk floorplan
 
 ![Screenshot from 2024-11-26 02-27-37](https://github.com/user-attachments/assets/f1d89c78-9d3e-45cc-84b3-990958082716)
 
+![Screenshot from 2024-11-26 07-16-50](https://github.com/user-attachments/assets/4f8d835e-c7da-434b-b2c0-faf5c9d56b7b)
+
+![Screenshot from 2024-11-26 07-18-26](https://github.com/user-attachments/assets/02e361c1-ebb8-4451-a956-feebe1930e1a)
+
 ```
 make gui_floorplan
 ```
@@ -4644,6 +4648,10 @@ make gui_floorplan
 ![Screenshot from 2024-11-26 02-27-53](https://github.com/user-attachments/assets/1047f3b8-9863-4e5c-a6df-f62f30001f06)
 
 ![Screenshot from 2024-11-26 02-28-01](https://github.com/user-attachments/assets/df2521c7-8e2d-4702-92bc-e5cbaf99c01e)
+
+##### HeatMap:
+
+![Screenshot from 2024-11-26 07-08-55](https://github.com/user-attachments/assets/8dbdaf11-be14-443b-8549-8cc93f9c6950)
 
 ```
 make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk gui_floorplan
@@ -4657,6 +4665,7 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk gui_floorplan
 
 ![Screenshot from 2024-11-26 05-38-37](https://github.com/user-attachments/assets/03a75b26-7b95-430b-b0af-3a594b63ca15)
 
+
 ```
 make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk place
 ```
@@ -4664,6 +4673,10 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk place
 ![Screenshot from 2024-11-26 02-30-06](https://github.com/user-attachments/assets/2ea129fd-ceef-4bce-85b7-1284bd59fb83)
 
 ![Screenshot from 2024-11-26 02-30-35](https://github.com/user-attachments/assets/c858c087-85c1-47d4-865f-34d09f1a8532)
+
+![Screenshot from 2024-11-26 07-19-03](https://github.com/user-attachments/assets/590df9ef-9753-4649-8d84-6dbc46315e7b)
+
+![Screenshot from 2024-11-26 07-19-13](https://github.com/user-attachments/assets/fa1d687c-54d1-43a3-a479-287c8e6bb0f8)
 
 ```
 make gui_place
@@ -4681,12 +4694,20 @@ make gui_place
 
 ![Screenshot from 2024-11-26 05-40-57](https://github.com/user-attachments/assets/33d456d9-55c8-4dca-a879-40fcf9654f63)
 
+#### Heat Map:
+
+![Screenshot from 2024-11-26 07-14-10](https://github.com/user-attachments/assets/0aa1d1a4-1104-4677-87a0-6136f2495499)
+
 
 ```
 make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk cts
 ```
 
 ![Screenshot from 2024-11-26 02-37-13](https://github.com/user-attachments/assets/48a81224-e72e-412d-9579-c5bd94cf8779)
+
+![Screenshot from 2024-11-26 07-20-23](https://github.com/user-attachments/assets/6047209c-1f3f-4e47-af76-61271c2510be)
+
+![Screenshot from 2024-11-26 07-20-27](https://github.com/user-attachments/assets/11872c3e-6cf6-4eb4-84fb-4ce253f9b84a)
 
 ```
 make gui_cts
@@ -4699,6 +4720,10 @@ make gui_cts
 ![Screenshot from 2024-11-26 05-41-49](https://github.com/user-attachments/assets/e183a67e-08ec-446c-98b4-5d5e1676b2e5)
 
 ![Screenshot from 2024-11-26 05-42-06](https://github.com/user-attachments/assets/754d495a-fd7c-43db-979f-7483c168e0d4)
+
+#### Heat Map:
+
+![Screenshot from 2024-11-26 07-16-50](https://github.com/user-attachments/assets/18c18d7a-e153-4d58-bcf8-8ad6f5a377e3)
 
 
 ```
